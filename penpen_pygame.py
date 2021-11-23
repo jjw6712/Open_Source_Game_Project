@@ -693,6 +693,15 @@ def main():  # 메인 루프
             if tmr == 1:
                 pygame.mixer.music.load("sound_penpen/bgm.ogg")
                 pygame.mixer.music.play(-1)
+                if stage==2 or stage==4 or stage==6:
+                    pygame.mixer.music.load("sound_penpen/boss_stage.ogg")
+                    pygame.mixer.music.play(-1)
+                elif stage==3:
+                    pygame.mixer.music.load("sound_penpen/stage3.ogg")
+                    pygame.mixer.music.play(-1)
+                elif stage==5:
+                    pygame.mixer.music.load("sound_penpen/stage5.ogg")
+                    pygame.mixer.music.play(-1)
 
         if idx == 2:  # 적에게 당했다
             draw_txt(screen, "MISS", 360, 270, 40, ORANGE)
