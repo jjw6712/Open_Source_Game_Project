@@ -113,9 +113,9 @@ img_boss_sky=pygame.image.load("image_penpen/boss_sky.png")# 보스 스킬
 
 
 
-se_candy = None
-boss_a=None
-boss_d=None
+se_candy = None #사탕 효과음
+boss_a=None #보스 맞는 효과음
+boss_d=None #보스 죽는 효과음
 
 DIR_UP = 0
 DIR_DOWN = 1
@@ -209,7 +209,7 @@ def set_stage():  # 스테이지 데이터 설정
         kuma_sd = -1
         track_sx=270 #장애물 위치
         track_sy=270
-        kpen_sd=-1
+        kpen_sd=-1 #보스 출현 x
         
         
 
@@ -236,7 +236,7 @@ def set_stage():  # 스테이지 데이터 설정
         track_sx=-100
         track_sy=-100
         boss_hp=50
-        kpen_sd=1
+        kpen_sd=1 #보스 출현O
 
     if stage == 3:
         map_data = [
@@ -400,7 +400,8 @@ def draw_screen(scrn):
         
         for j in range(boss_hp):
             scrn.blit(img_boss_hp, [200 + j * 10, 45])
-        draw_txt(scrn, "BOSS STAGE " + str(stage), 520, 30, 30, RED)
+        draw_txt(scrn, "BOSS STAGE " + str(stage), 520, 30, 30, RED) #보스 스테이지 따로표시
+        draw_txt(scrn, "BOSS HP X  " + str(boss_hp), 150, 30, 30, PINK) #보스 체력 표시
     else:
         draw_txt(scrn, "STAGE " + str(stage), 520, 30, 30, LIME)
     for i in range(nokori):
