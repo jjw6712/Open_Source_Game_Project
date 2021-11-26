@@ -135,6 +135,25 @@ img_boss_hp=pygame.image.load("image_penpen/hp.png")# 보스 체력바
 img_boss_skx=pygame.image.load("image_penpen/boss_skx.png")
 img_boss_sky=pygame.image.load("image_penpen/boss_sky.png")# 보스 스킬
 
+img_bs=[pygame.image.load("image_penpen/effact/water1.png"),# 보스가 맞는 효과
+        pygame.image.load("image_penpen/effact/water2.png"),
+        pygame.image.load("image_penpen/effact/water3.png"),
+        pygame.image.load("image_penpen/effact/water4.png"),
+        pygame.image.load("image_penpen/effact/water5.png"),
+        pygame.image.load("image_penpen/effact/water6.png"),
+        pygame.image.load("image_penpen/effact/water7.png"),
+        pygame.image.load("image_penpen/effact/water8.png"),
+        pygame.image.load("image_penpen/effact/water9.png"),
+        pygame.image.load("image_penpen/effact/water10.png"),
+        pygame.image.load("image_penpen/effact/water11.png"),
+        pygame.image.load("image_penpen/effact/water12.png"),
+        pygame.image.load("image_penpen/effact/water13.png"),
+        pygame.image.load("image_penpen/effact/water14.png"),
+        pygame.image.load("image_penpen/effact/water15.png")
+        
+        
+    ]
+
 
 
 se_candy = None #사탕 효과음
@@ -200,6 +219,10 @@ at_d=0
 
 sk_x=0
 sk_y=0
+
+bs_x=0
+bs_y=0
+bs_a=0
 
 boss_hp=0 #보스 피통
 
@@ -397,7 +420,7 @@ def draw_txt(scrn, txt, x, y, siz, col):  # 그림자 포함 문자
 
 
 def draw_screen(scrn):
-    global at_x, at_y, at_a, at_d, sk_x, sk_y, at_r, at_l, at_u, at_d
+    global at_x, at_y, at_a, at_d, sk_x, sk_y, at_r, at_l, at_u, at_d, bs_x, bs_y, bs_a
     speed=10# 게임 화면 그리기
     for y in range(9):
         for x in range(12):
@@ -433,6 +456,8 @@ def draw_screen(scrn):
     at_x=pen_x
     at_y=pen_y
 
+    
+
     sk_x=400
     sk_y=310
 
@@ -461,6 +486,12 @@ def draw_screen(scrn):
             for y in range(5):
                 at_y=at_y+50
                 scrn.blit(img_attackd[at_d],[at_x-30, at_y-30])
+
+        if abs(kpen_x - at_x) <= 100 and abs(kpen_y - at_y) <= 100:
+            bs_x=kpen_x
+            bs_y=kpen_y
+            scrn.blit(img_bs[bs_a],[bs_x-30, bs_y-30])
+
 
 
 
@@ -518,6 +549,11 @@ def at():
         at_l=ANIMATION[tmr % 4]
         at_u=ANIMATION[tmr % 4]
         at_d=ANIMATION[tmr % 4]
+
+def bs():
+    global bs_x, bs_y, idx, tmr,bs_a
+    if idx==1:
+        bs_a=ANIMATION[tmr % 4]
 
 
 def move_penpen(key):  # 펜펜 움직이기
@@ -719,6 +755,7 @@ def main():  # 메인 루프
             move_enemy3()
             track()
             at()
+            bs()
             if candy == 0:
                 idx = 4
                 tmr = 0
