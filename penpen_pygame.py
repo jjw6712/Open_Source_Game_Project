@@ -101,10 +101,34 @@ img_kpen = [ #1스테이지 보스
     pygame.image.load("image_penpen/kpen11.png")
 ]
 
-img_attackr=pygame.image.load("image_penpen/br.png") # 공격 스킬 이미지
-img_attackl=pygame.image.load("image_penpen/bl.png")
-img_attacku=pygame.image.load("image_penpen/bu.png")
-img_attackd=pygame.image.load("image_penpen/bd.png")
+img_attackr=[pygame.image.load("image_penpen/atr1.png"),
+             pygame.image.load("image_penpen/atr1.5.png"),
+             pygame.image.load("image_penpen/atr2.png"),
+             pygame.image.load("image_penpen/atr2.5.png"),
+             pygame.image.load("image_penpen/atr3.png"),
+             pygame.image.load("image_penpen/atr3.5.png")
+]
+img_attackl=[pygame.image.load("image_penpen/atl1.png"),
+             pygame.image.load("image_penpen/atl1.5.png"),
+             pygame.image.load("image_penpen/atl2.png"),
+             pygame.image.load("image_penpen/atl2.5.png"),
+             pygame.image.load("image_penpen/atl3.png"),
+             pygame.image.load("image_penpen/atl3.5.png")
+]
+img_attacku=[pygame.image.load("image_penpen/atu1.png"),
+             pygame.image.load("image_penpen/atu1.5.png"),
+             pygame.image.load("image_penpen/atu2.png"),
+             pygame.image.load("image_penpen/atu2.5.png"),
+             pygame.image.load("image_penpen/atu3.png"),
+             pygame.image.load("image_penpen/atu3.5.png")
+]
+img_attackd=[pygame.image.load("image_penpen/atd1.png"),
+             pygame.image.load("image_penpen/atd1.5.png"),
+             pygame.image.load("image_penpen/atd2.png"),
+             pygame.image.load("image_penpen/atd2.5.png"),
+             pygame.image.load("image_penpen/atd3.png"),
+             pygame.image.load("image_penpen/atd3.5.png")
+]
 
 img_boss_hp=pygame.image.load("image_penpen/hp.png")# 보스 체력바
 
@@ -169,11 +193,10 @@ track_sd=0
 
 at_x=pen_x #공격 전역변수
 at_y=pen_y
-at_a=0
+at_r=0
+at_l=0
+at_u=0
 at_d=0
-at_sx=0
-at_sy=0
-at_sd=0
 
 sk_x=0
 sk_y=0
@@ -374,7 +397,7 @@ def draw_txt(scrn, txt, x, y, siz, col):  # 그림자 포함 문자
 
 
 def draw_screen(scrn):
-    global at_x, at_y, at_a, at_d, sk_x, sk_y
+    global at_x, at_y, at_a, at_d, sk_x, sk_y, at_r, at_l, at_u, at_d
     speed=10# 게임 화면 그리기
     for y in range(9):
         for x in range(12):
@@ -414,7 +437,7 @@ def draw_screen(scrn):
     sk_y=310
 
    
-    if stage==2 or stage==4 or stage==6: #보스 스테이지
+    if stage==2 or stage==4 or stage==6 or stage==1: #보스 스테이지
 
     
         
@@ -422,22 +445,23 @@ def draw_screen(scrn):
         if key[K_z]==1 and key[K_RIGHT]==1: #펭귄 공격 모듈
             for x in range(5):
                 at_x=at_x+50
-                scrn.blit(img_attackr,[at_x-30, at_y-30])
-
+                scrn.blit(img_attackr[at_r],[at_x-30, at_y-30])
+        
         elif key[K_z]==1 and key[K_LEFT]==1:
             for x in range(5):
                 at_x=at_x-50
-                scrn.blit(img_attackl,[at_x-30, at_y-30])
+                scrn.blit(img_attackl[at_l],[at_x-30, at_y-30])
 
         elif key[K_z]==1 and key[K_UP]==1:
             for y in range(5):
                 at_y=at_y-50
-                scrn.blit(img_attacku,[at_x-30, at_y-30])
+                scrn.blit(img_attacku[at_u],[at_x-30, at_y-30])
 
         elif key[K_z]==1 and key[K_DOWN]==1:
             for y in range(5):
                 at_y=at_y+50
-                scrn.blit(img_attackd,[at_x-30, at_y-30])
+                scrn.blit(img_attackd[at_d],[at_x-30, at_y-30])
+
 
 
         
@@ -487,6 +511,13 @@ def track(): #장애물 함수
     if abs(track_x - pen_x) <= 60 and abs(track_y - pen_y) <= 60:
         idx = 2
         tmr = 0
+def at():
+    global at_x, at_y, at_r, at_l, at_u, at_d, idx, tmr
+    if idx==1:
+        at_r=ANIMATION[tmr % 4]
+        at_l=ANIMATION[tmr % 4]
+        at_u=ANIMATION[tmr % 4]
+        at_d=ANIMATION[tmr % 4]
 
 
 def move_penpen(key):  # 펜펜 움직이기
@@ -687,6 +718,7 @@ def main():  # 메인 루프
             move_enemy2()
             move_enemy3()
             track()
+            at()
             if candy == 0:
                 idx = 4
                 tmr = 0
