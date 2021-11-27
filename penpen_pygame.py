@@ -67,7 +67,7 @@ img_red = [
     pygame.image.load("image_penpen/pen_face.png")    
 ]
 
-img_fire = [
+img_fire = [ #불의정령
     pygame.image.load("image_penpen/f00.png"),
     pygame.image.load("image_penpen/f01.png"),
     pygame.image.load("image_penpen/f02.png"),
@@ -89,7 +89,7 @@ img_kuma = [
     pygame.image.load("image_penpen/kuma02.png")
 ]
 
-img_firez = [
+img_firez = [ #불의 거인
     pygame.image.load("image_penpen/fz00.png"),
     pygame.image.load("image_penpen/fz01.png"),
     pygame.image.load("image_penpen/fz02.png"),
@@ -101,7 +101,21 @@ img_firez = [
    
 ]
 
+img_knight = [ #기사
+    pygame.image.load("image_penpen/kn00.png"),
+    pygame.image.load("image_penpen/kn01.png"),
+    pygame.image.load("image_penpen/kn02.png"),
+    pygame.image.load("image_penpen/kn03.png"),
+    pygame.image.load("image_penpen/kn04.png"),
+    pygame.image.load("image_penpen/kn05.png"),
+    pygame.image.load("image_penpen/kn06.png"),
+    pygame.image.load("image_penpen/kn07.png"),
+    pygame.image.load("image_penpen/kn08.png"),
+    pygame.image.load("image_penpen/kn09.png"),
+    pygame.image.load("image_penpen/kn10.png"),
+    pygame.image.load("image_penpen/kn11.png")
 
+]
 img_title = pygame.image.load("image_penpen/title.png")
 img_ending = pygame.image.load("image_penpen/ending.png")
 
@@ -132,7 +146,7 @@ img_kpen = [ #1스테이지 보스
     pygame.image.load("image_penpen/kpen11.png")
 ]
 
-img_dragon = [ #1스테이지 보스
+img_dragon = [ #드레곤
     pygame.image.load("image_penpen/d00.png"),
     pygame.image.load("image_penpen/d01.png"),
     pygame.image.load("image_penpen/d02.png"),
@@ -148,7 +162,7 @@ img_dragon = [ #1스테이지 보스
     
 ]
 
-img_gient = [ #1스테이지 보스
+img_gient = [ #거인
     pygame.image.load("image_penpen/g00.png"),
     pygame.image.load("image_penpen/g01.png"),
     pygame.image.load("image_penpen/g02.png"),
@@ -163,6 +177,17 @@ img_gient = [ #1스테이지 보스
     pygame.image.load("image_penpen/g11.png")
 
 ]
+
+img_golem = [ #골렘
+    pygame.image.load("image_penpen/gl00.png"),
+    pygame.image.load("image_penpen/gl01.png"),
+    pygame.image.load("image_penpen/gl02.png"),
+    pygame.image.load("image_penpen/gl03.png"),
+    pygame.image.load("image_penpen/gl04.png"),
+    pygame.image.load("image_penpen/gl05.png")
+
+]
+
 img_attackr=[pygame.image.load("image_penpen/atr1.png"),
              pygame.image.load("image_penpen/atr1.5.png"),
              pygame.image.load("image_penpen/atr2.png"),
@@ -231,7 +256,7 @@ BLINK = [(255, 255, 255), (255, 255, 192), (255, 255, 128), (255, 224, 64), (255
 
 idx = 0
 tmr = 0
-stage = 4
+stage = 3
 score = 0
 nokori = 3
 candy = 0
@@ -491,23 +516,28 @@ def draw_screen(scrn):
                 scrn.blit(img_bg2[map_data[y][x]], [x * 60, y * 60])
             if stage==5 or stage==6:
                 scrn.blit(img_bg3[map_data[y][x]], [x * 60, y * 60])
+    scrn.blit(img_track[track_a],[track_x - 30, track_y - 30])
                 
     scrn.blit(img_pen[pen_a], [pen_x - 30, pen_y - 30])
-    if stage==1 or stage==2 or stage==3 or stage==4:
+    if stage==1 or stage==2:
         scrn.blit(img_red[red_a], [red_x - 30, red_y - 30])
+    if stage==3 or stage==4:
+        scrn.blit(img_knight[red_a], [red_x - 30, red_y - 30])
     if stage==5 or stage==6:
         scrn.blit(img_fire[red_a], [red_x - 30, red_y - 30])
     
     if kpen_sd != -1 and stage==2:
         scrn.blit(img_kpen[kpen_a], [kpen_x - 30, kpen_y - 30])
     if stage==4:
-       
-        scrn.blit(img_gient[kpen_a], [kpen_x - 30, kpen_y - 30])
+       scrn.blit(img_gient[kpen_a], [kpen_x - 30, kpen_y - 30])
     if stage==6:
         scrn.blit(img_dragon[kpen_a], [kpen_x - 30, kpen_y - 30])
-    if kuma_sd != -1 and (stage==1 or stage==2 or stage==3 or stage==4):
+        
+    if kuma_sd != -1 and (stage==1 or stage==2):
         scrn.blit(img_kuma[kuma_a], [kuma_x - 30, kuma_y - 30])
-    scrn.blit(img_track[track_a],[track_x - 30, track_y - 30])
+    if stage==3 or stage==4:
+        scrn.blit(img_golem[kuma_a], [kuma_x - 30, kuma_y - 45])
+    
     if stage==5 or stage==6:
         scrn.blit(img_firez[kuma_a], [kuma_x - 30, kuma_y - 45])
     
