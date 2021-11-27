@@ -64,13 +64,44 @@ img_red = [
     pygame.image.load("image_penpen/red09.png"),
     pygame.image.load("image_penpen/red10.png"),
     pygame.image.load("image_penpen/red11.png"),
-    pygame.image.load("image_penpen/pen_face.png")
+    pygame.image.load("image_penpen/pen_face.png")    
 ]
+
+img_fire = [
+    pygame.image.load("image_penpen/f00.png"),
+    pygame.image.load("image_penpen/f01.png"),
+    pygame.image.load("image_penpen/f02.png"),
+    pygame.image.load("image_penpen/f03.png"),
+    pygame.image.load("image_penpen/f04.png"),
+    pygame.image.load("image_penpen/f05.png"),
+    pygame.image.load("image_penpen/f06.png"),
+    pygame.image.load("image_penpen/f07.png"),
+    pygame.image.load("image_penpen/f08.png"),
+    pygame.image.load("image_penpen/f09.png"),
+    pygame.image.load("image_penpen/f10.png"),
+    pygame.image.load("image_penpen/f11.png")
+]
+
+
 img_kuma = [
     pygame.image.load("image_penpen/kuma00.png"),
     pygame.image.load("image_penpen/kuma01.png"),
     pygame.image.load("image_penpen/kuma02.png")
 ]
+
+img_firez = [
+    pygame.image.load("image_penpen/fz00.png"),
+    pygame.image.load("image_penpen/fz01.png"),
+    pygame.image.load("image_penpen/fz02.png"),
+    pygame.image.load("image_penpen/fz03.png"),
+    pygame.image.load("image_penpen/fz04.png"),
+    pygame.image.load("image_penpen/fz05.png"),
+    pygame.image.load("image_penpen/fz06.png"),
+    pygame.image.load("image_penpen/fz07.png")
+   
+]
+
+
 img_title = pygame.image.load("image_penpen/title.png")
 img_ending = pygame.image.load("image_penpen/ending.png")
 
@@ -101,6 +132,37 @@ img_kpen = [ #1스테이지 보스
     pygame.image.load("image_penpen/kpen11.png")
 ]
 
+img_dragon = [ #1스테이지 보스
+    pygame.image.load("image_penpen/d00.png"),
+    pygame.image.load("image_penpen/d01.png"),
+    pygame.image.load("image_penpen/d02.png"),
+    pygame.image.load("image_penpen/d03.png"),
+    pygame.image.load("image_penpen/d04.png"),
+    pygame.image.load("image_penpen/d05.png"),
+    pygame.image.load("image_penpen/d06.png"),
+    pygame.image.load("image_penpen/d07.png"),
+    pygame.image.load("image_penpen/d08.png"),
+    pygame.image.load("image_penpen/d09.png"),
+    pygame.image.load("image_penpen/d10.png"),
+    pygame.image.load("image_penpen/d11.png")
+    
+]
+
+img_gient = [ #1스테이지 보스
+    pygame.image.load("image_penpen/g00.png"),
+    pygame.image.load("image_penpen/g01.png"),
+    pygame.image.load("image_penpen/g02.png"),
+    pygame.image.load("image_penpen/g03.png"),
+    pygame.image.load("image_penpen/g04.png"),
+    pygame.image.load("image_penpen/g05.png"),
+    pygame.image.load("image_penpen/g06.png"),
+    pygame.image.load("image_penpen/g07.png"),
+    pygame.image.load("image_penpen/g08.png"),
+    pygame.image.load("image_penpen/g09.png"),
+    pygame.image.load("image_penpen/g10.png"),
+    pygame.image.load("image_penpen/g11.png")
+
+]
 img_attackr=[pygame.image.load("image_penpen/atr1.png"),
              pygame.image.load("image_penpen/atr1.5.png"),
              pygame.image.load("image_penpen/atr2.png"),
@@ -169,7 +231,7 @@ BLINK = [(255, 255, 255), (255, 255, 192), (255, 255, 128), (255, 224, 64), (255
 
 idx = 0
 tmr = 0
-stage = 1
+stage = 4
 score = 0
 nokori = 3
 candy = 0
@@ -431,13 +493,23 @@ def draw_screen(scrn):
                 scrn.blit(img_bg3[map_data[y][x]], [x * 60, y * 60])
                 
     scrn.blit(img_pen[pen_a], [pen_x - 30, pen_y - 30])
-    scrn.blit(img_red[red_a], [red_x - 30, red_y - 30])
+    if stage==1 or stage==2 or stage==3 or stage==4:
+        scrn.blit(img_red[red_a], [red_x - 30, red_y - 30])
+    if stage==5 or stage==6:
+        scrn.blit(img_fire[red_a], [red_x - 30, red_y - 30])
     
-    if kpen_sd != -1:
+    if kpen_sd != -1 and stage==2:
         scrn.blit(img_kpen[kpen_a], [kpen_x - 30, kpen_y - 30])
-    if kuma_sd != -1:
+    if stage==4:
+       
+        scrn.blit(img_gient[kpen_a], [kpen_x - 30, kpen_y - 30])
+    if stage==6:
+        scrn.blit(img_dragon[kpen_a], [kpen_x - 30, kpen_y - 30])
+    if kuma_sd != -1 and (stage==1 or stage==2 or stage==3 or stage==4):
         scrn.blit(img_kuma[kuma_a], [kuma_x - 30, kuma_y - 30])
     scrn.blit(img_track[track_a],[track_x - 30, track_y - 30])
+    if stage==5 or stage==6:
+        scrn.blit(img_firez[kuma_a], [kuma_x - 30, kuma_y - 45])
     
 
     if stage==1 or stage==3 or stage==5:
@@ -471,21 +543,33 @@ def draw_screen(scrn):
             for x in range(5):
                 at_x=at_x+50
                 scrn.blit(img_attackr[at_r],[at_x-30, at_y-30])
+                bs_x=pen_x
+                bs_y-pen_y
+                scrn.blit(img_bs[bs_a],[pen_x-60, pen_y-94])
         
         elif key[K_z]==1 and key[K_LEFT]==1:
             for x in range(5):
                 at_x=at_x-50
                 scrn.blit(img_attackl[at_l],[at_x-30, at_y-30])
+                bs_x=pen_x
+                bs_y-pen_y
+                scrn.blit(img_bs[bs_a],[pen_x-14, pen_y-94])
 
         elif key[K_z]==1 and key[K_UP]==1:
             for y in range(5):
                 at_y=at_y-50
                 scrn.blit(img_attacku[at_u],[at_x-30, at_y-30])
+                bs_x=pen_x
+                bs_y-pen_y
+                scrn.blit(img_bs[bs_a],[pen_x-44, pen_y-90])
 
         elif key[K_z]==1 and key[K_DOWN]==1:
             for y in range(5):
                 at_y=at_y+50
                 scrn.blit(img_attackd[at_d],[at_x-30, at_y-30])
+                bs_x=pen_x
+                bs_y-pen_y
+                scrn.blit(img_bs[bs_a],[pen_x-44, pen_y-90])
 
         if abs(kpen_x - at_x) <= 100 and abs(kpen_y - at_y) <= 100:
             bs_x=kpen_x
@@ -581,6 +665,7 @@ def move_penpen(key):  # 펜펜 움직이기
     if map_data[my][mx] == 4:
         map_data[my][mx] = 2
         nokori=nokori+1
+        se_candy.play()
     if map_data[my][mx] == 3:  # 사탕에 닿았는가?
         score = score + 100
         map_data[my][mx] = 2
@@ -701,6 +786,8 @@ def move_enemy2():  # 쿠마곤 움직이기
         else:
             kuma_d = DIR_LEFT
     kuma_a = ANIMATION[tmr % 4]
+    if stage==5 or stage==6:
+        kuma_a = kuma_a*2+ANIMATION[tmr % 4]
     if abs(kuma_x - pen_x) <= 40 and abs(kuma_y - pen_y) <= 40:
         idx = 2
         tmr = 0
