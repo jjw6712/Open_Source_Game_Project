@@ -256,7 +256,7 @@ BLINK = [(255, 255, 255), (255, 255, 192), (255, 255, 128), (255, 224, 64), (255
 
 idx = 0
 tmr = 0
-stage = 6
+stage = 1
 score = 0
 nokori = 3
 candy = 0
@@ -564,7 +564,7 @@ def draw_screen(scrn):
     sk_y=310
 
    
-    if stage==2 or stage==4 or stage==6 or stage==1: #보스 스테이지
+    if stage==2 or stage==4 or stage==6: #보스 스테이지
 
     
         
