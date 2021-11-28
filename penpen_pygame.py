@@ -529,9 +529,9 @@ def draw_screen(scrn):
     if kpen_sd != -1 and stage==2:
         scrn.blit(img_kpen[kpen_a], [kpen_x - 30, kpen_y - 30])
     if stage==4:
-       scrn.blit(img_gient[kpen_a], [kpen_x - 84, kpen_y - 100])
+       scrn.blit(img_gient[kpen_a], [kpen_x - 84, kpen_y - 110])
     if stage==6:
-        scrn.blit(img_dragon[kpen_a], [kpen_x - 55, kpen_y - 100])
+        scrn.blit(img_dragon[kpen_a], [kpen_x - 105, kpen_y - 100])
         
     if kuma_sd != -1 and (stage==1 or stage==2):
         scrn.blit(img_kuma[kuma_a], [kuma_x - 30, kuma_y - 30])
@@ -787,11 +787,10 @@ def move_enemy3():  # 스테이지2 보스 움직이기
             idx = 2
             tmr = 0
         
-    if abs(kpen_x - at_x) <= 110 and abs(kpen_y - at_y) <= 110 or abs(kpen_x - at_x) <= 65 and abs(kpen_y - at_y) <= 65:
+    if abs(kpen_x - at_x) <= 100 and abs(kpen_y - at_y) <= 100 or abs(kpen_x - pen_x) <= 60 and abs(kpen_y - pen_y) <= 60:
         boss_hp=boss_hp-1
         boss_a.play()
         if boss_hp==0:
-            boss_d.play()
             kpen_x=-300
             kpen_y=-300
             if stage==2 or stage==4 or stage==6:
@@ -842,7 +841,6 @@ def main():  # 메인 루프
     se_candy = pygame.mixer.Sound("sound_penpen/candy.ogg")
     boss_a = pygame.mixer.Sound("sound_penpen/boss_a.ogg")
     boss_d = pygame.mixer.Sound("sound_penpen/boss_d.ogg")
-
     set_stage()
     set_chara_pos()
 
@@ -930,8 +928,14 @@ def main():  # 메인 루프
                 pygame.mixer.music.stop()
             if tmr == 5:
                 pygame.mixer.music.load("sound_penpen/clear.ogg")
-                if stage==2 or stage==4 or stage==6:
+                if stage==2:
                     boss_d.play()
+                elif stage==4:
+                    pygame.mixer.music.load("sound_penpen/golem.ogg")
+                    pygame.mixer.music.play(-1)
+                elif stage==6:
+                    pygame.mixer.music.load("sound_penpen/dragon.ogg")
+                    pygame.mixer.music.play(-1)
                     
                 pygame.mixer.music.play(0)
             if tmr == 50:
