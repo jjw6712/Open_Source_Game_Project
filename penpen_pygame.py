@@ -256,7 +256,7 @@ BLINK = [(255, 255, 255), (255, 255, 192), (255, 255, 128), (255, 224, 64), (255
 
 idx = 0
 tmr = 0
-stage = 1
+stage = 6
 score = 0
 nokori = 3
 candy = 0
@@ -529,9 +529,9 @@ def draw_screen(scrn):
     if kpen_sd != -1 and stage==2:
         scrn.blit(img_kpen[kpen_a], [kpen_x - 30, kpen_y - 30])
     if stage==4:
-       scrn.blit(img_gient[kpen_a], [kpen_x - 30, kpen_y - 30])
+       scrn.blit(img_gient[kpen_a], [kpen_x - 84, kpen_y - 100])
     if stage==6:
-        scrn.blit(img_dragon[kpen_a], [kpen_x - 30, kpen_y - 30])
+        scrn.blit(img_dragon[kpen_a], [kpen_x - 55, kpen_y - 100])
         
     if kuma_sd != -1 and (stage==1 or stage==2):
         scrn.blit(img_kuma[kuma_a], [kuma_x - 30, kuma_y - 30])
@@ -564,7 +564,7 @@ def draw_screen(scrn):
     sk_y=310
 
    
-    if stage==2 or stage==4 or stage==6: #보스 스테이지
+    if stage==2 or stage==4 or stage==6 or stage==1: #보스 스테이지
 
     
         
@@ -774,10 +774,20 @@ def move_enemy3():  # 스테이지2 보스 움직이기
         if check_wall(kpen_x, kpen_y, kpen_d, speed) == False:
             kpen_x = kpen_x + speed
     kpen_a = kpen_d * 3 + ANIMATION[tmr % 4]
-    if abs(kpen_x - pen_x) <= 50 and abs(kpen_y - pen_y) <= 50:
-        idx = 2
-        tmr = 0
-    if abs(kpen_x - at_x) <= 100 and abs(kpen_y - at_y) <= 100:
+    if stage==2:
+        if abs(kpen_x - pen_x) <= 55 and abs(kpen_y - pen_y) <= 55:
+            idx = 2
+            tmr = 0
+    elif stage==4:
+        if abs(kpen_x - pen_x) <= 45 and abs(kpen_y - pen_y) <= 45:
+            idx = 2
+            tmr = 0
+    elif stage==6:
+        if abs(kpen_x - pen_x) <= 45 and abs(kpen_y - pen_y) <= 45:
+            idx = 2
+            tmr = 0
+        
+    if abs(kpen_x - at_x) <= 110 and abs(kpen_y - at_y) <= 110 or abs(kpen_x - at_x) <= 65 and abs(kpen_y - at_y) <= 65:
         boss_hp=boss_hp-1
         boss_a.play()
         if boss_hp==0:
